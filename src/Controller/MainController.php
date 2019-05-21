@@ -17,7 +17,8 @@ class MainController extends AbstractController
         // return $this->json([
         //     'message' => 'Welcome to your new controller!'
         // ]);
-        return new Response('<h1>Welcome to your new controller!</h1>');
+        // return new Response('<h1>Welcome to your new controller!</h1>');
+        return $this->render('home/index.html.twig');
     }
 
     /**
