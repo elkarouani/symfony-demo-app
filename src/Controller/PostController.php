@@ -51,4 +51,15 @@ class PostController extends AbstractController
             'post' => $post
         ]);
     }
+
+    /**
+     * @Route("/delete/{id}", name="delete")
+     * @param Post $post
+     */
+    public function remove(Post $post) {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($post);
+        $em->flush();
+        return $this->redirect($this->generateUrl('post.index'));
+    }
 }
