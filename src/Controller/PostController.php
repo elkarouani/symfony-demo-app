@@ -40,4 +40,15 @@ class PostController extends AbstractController
         $em->flush();
         return new Response('Post was created');
     }
+
+    /**
+     * @Route("/show/{id}", name="show")
+     * @param Post $post
+     * @return Response
+     */
+    public function show(Post $post) {
+        return $this->render('post/show.html.twig', [
+            'post' => $post
+        ]);
+    }
 }
