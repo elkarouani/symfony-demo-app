@@ -38,7 +38,7 @@ class PostController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->persist($post);
         $em->flush();
-        return new Response('Post was created');
+        return $this->redirect($this->generateUrl('post.index'));
     }
 
     /**
@@ -60,6 +60,7 @@ class PostController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->remove($post);
         $em->flush();
+        $this->addFlash('success', 'Post was well removed');
         return $this->redirect($this->generateUrl('post.index'));
     }
 }
