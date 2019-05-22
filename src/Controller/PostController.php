@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Post;
+use App\Repository\PostRepository;
 
 /**
  * @Route("/post", name="post.")
@@ -15,11 +16,14 @@ class PostController extends AbstractController
 {
     /**
      * @Route("/", name="index")
+     * @param PostRepository $postRepository
+     * @return Response
      */
-    public function index()
+    public function index(PostRepository $postRepository)
     {
+        $posts = $postRepository->findAll();
         return $this->render('post/index.html.twig', [
-            'controller_name' => 'PostController',
+            'posts' => $posts
         ]);
     }
 
