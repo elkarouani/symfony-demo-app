@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Post;
 use App\Repository\PostRepository;
+use App\Form\PostType;
 
 /**
  * @Route("/post", name="post.")
@@ -34,11 +35,15 @@ class PostController extends AbstractController
      */
     public function create(Request $request) {
         $post = new Post();
-        $post->setTitle('default title');
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($post);
-        $em->flush();
-        return $this->redirect($this->generateUrl('post.index'));
+        // $post->setTitle('default title');
+        $form = $this->createForm(PostType::class, $post);
+        // $em = $this->getDoctrine()->getManager();
+        // $em->persist($post);
+        // $em->flush();
+        // return $this->redirect($this->generateUrl('post.index'));
+        return $this->render('post/create.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     /**
@@ -55,6 +60,7 @@ class PostController extends AbstractController
     /**
      * @Route("/delete/{id}", name="delete")
      * @param Post $post
+     * @return Response
      */
     public function remove(Post $post) {
         $em = $this->getDoctrine()->getManager();
