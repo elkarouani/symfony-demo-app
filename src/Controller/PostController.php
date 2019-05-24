@@ -37,10 +37,13 @@ class PostController extends AbstractController
         $post = new Post();
         // $post->setTitle('default title');
         $form = $this->createForm(PostType::class, $post);
-        // $em = $this->getDoctrine()->getManager();
-        // $em->persist($post);
-        // $em->flush();
-        // return $this->redirect($this->generateUrl('post.index'));
+        $form->handleRequest($request);
+        if($form->isSubmitted()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($post);
+            $em->flush();
+            return $this->redirect($this->generateUrl('post.index'));
+        }
         return $this->render('post/create.html.twig', [
             'form' => $form->createView()
         ]);
